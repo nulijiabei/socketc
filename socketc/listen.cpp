@@ -49,13 +49,15 @@ int Listen::udp() {
 
 /*
     // 连接信息
-    c_addr.sin_port
-    inet_ntoa(c_addr.sin_addr)
+    client_addr.sin_port
+    inet_ntoa(client_addr.sin_addr)
 */
-int Listen::accepts(sockaddr_in * _client_addr, socklen_t * _client_addr_len)
+int Listen::accepts(sockaddr_in * _client_addr)
 {
+    // 地址结构长度,socket
+    socklen_t client_addr_len = sizeof(_client_addr);
     // 等待接受连接
-    int client_sockfd = accept(sockfd, (struct sockaddr *) _client_addr, _client_addr_len);
+    int client_sockfd = accept(sockfd, (struct sockaddr *) _client_addr, &client_addr_len);
     if (client_sockfd < 0)
     {
         return -1;

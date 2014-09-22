@@ -13,7 +13,7 @@ public:
 public:
     int tcp();
     int udp();
-    int accepts(sockaddr_in * _client_addr, socklen_t * _client_addr_len);
+    int accepts(sockaddr_in * _client_addr);
 private:
     // 要监听的端口
     int port;
