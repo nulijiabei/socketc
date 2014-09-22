@@ -8,11 +8,10 @@ SOURCES += main.cpp \
     tcp.cpp \
     udp.cpp
 
-include(deployment.pri)
-qtcAddDeployment()
-
 HEADERS += \
     listen.h \
     tcp.h \
     udp.h
 
+
+LIBS += -lev

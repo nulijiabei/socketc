@@ -1,9 +1,13 @@
 #include "listen.h"
-#include "pthread.h"
+#include <string.h>
+#include <unistd.h>
+#include <ev.h>
+#include <iostream>
 
 Listen::Listen(int _port)
 {
     port = _port;
+    loop = ev_default_loop(0);
 }
 
 Listen::~Listen()
@@ -31,11 +35,13 @@ int Listen::tcp() {
     // 标识赋值
     if (bind(sockfd, (struct sockaddr*) &address, sizeof(address)) != 0)
     {
+        close(sockfd);
         return -1;
     }
     // 监听
     if (listen(sockfd, 5) < 0)
     {
+        close(sockfd);
         return -1;
     }
     // 返回
@@ -47,8 +53,7 @@ int Listen::udp() {
     return -1;
 }
 
-/*
-int Listen::accepts()
+int Listen::accepts(void(*func)(struct ev_loop*, struct ev_io*, int))
 {
     // 地址结构
     sockaddr_in client_addr;
@@ -61,9 +66,15 @@ int Listen::accepts()
         int client_sockfd = accept(sockfd, (struct sockaddr *) &client_addr, &client_addr_len);
         if (client_sockfd < 0)
         {
+            close(sockfd);
             return -1;
         }
+        cout << client_addr.sin_addr.s_addr << client_addr.sin_port << endl;
+        // 分派
+        ev_io * event = new(ev_io);
+        // 开始监听事件
+        ev_io_init(event, func, client_sockfd, EV_IO);
+        ev_io_start(loop, event);
     }
     return -1;
 }
-*/
