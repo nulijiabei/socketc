@@ -62,5 +62,7 @@ int Tcp::conn()
 int Tcp::rw(int(*func)(int))
 {
     // 执行
-    return func(sockfd);
+    int status = func(sockfd);
+    close(sockfd);
+    return status;
 }

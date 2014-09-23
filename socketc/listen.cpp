@@ -15,6 +15,8 @@
         {
             return;
         }
+        // 连接
+        watcher->fd
     }
 
     // run
