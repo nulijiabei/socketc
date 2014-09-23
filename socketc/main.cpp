@@ -1,29 +1,24 @@
 #include <iostream>
 #include <listen.h>
 #include <arpa/inet.h>
+#include <tcp.h>
 
 using namespace std;
 
 
-// read sokcet descriptor
-void func(struct ev_loop * _loop, struct ev_io * _watcher, int _revents){
-    // 错误处理
-    if(EV_ERROR & _revents)
-    {
-        return;
-    }
-    // 描述符信息
-    struct stat s_info;
-    fstat(_watcher->fd, &s_info);
-    cout << (long) s_info.st_ino << endl;
+int func(int sockfd){
+    string a = "123#End\n";
+    send(sockfd, a.c_str(), sizeof(a.c_str()), 0);
+    cout << a << endl;
+    return 0;
 }
 
+// run
 int main()
 {
-    cout << "Hello World!" << endl;
-    Listen * listen = new Listen(8080);
-    cout << "TCP ->" << listen->tcp() << endl;
-    listen->accepts(func);
+    Tcp * tcp = new Tcp("192.168.2.150", 8700);
+    cout << tcp->conn() << endl;
+    cout << tcp->rw(func) << endl;
     return 0;
 }
 

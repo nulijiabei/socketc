@@ -10,7 +10,6 @@ class Listen
 {
 public:
     Listen(int _port);
-    ~Listen();
 public:
     int tcp();
     int udp();

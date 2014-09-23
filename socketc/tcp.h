@@ -9,14 +9,15 @@ class Tcp
 public:
     Tcp(string _addr, int _port);
 public:
-    void connect();
+    int conn();
+    int rw(int(*func)(int));
 private:
     // 要监听的地址
     string addr;
     // 要监听的端口
     int port;
-    // 最大重试次数
-    int maxRetry;
+    // 描述符
+    int sockfd;
 };
 
 #endif // TCP_H
