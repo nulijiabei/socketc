@@ -7,16 +7,12 @@ using namespace std;
 
 
 int func(int sockfd){
-    string a = "123#End\n";
-    send(sockfd, a.c_str(), sizeof(a.c_str()), 0);
-    cout << a << endl;
     return 0;
 }
 
-// run
 int main()
 {
-    Tcp * tcp = new Tcp("192.168.2.150", 8700);
+    Tcp * tcp = new Tcp("192.168.0.1", 8080);
     cout << tcp->conn() << endl;
     cout << tcp->rw(func) << endl;
     return 0;

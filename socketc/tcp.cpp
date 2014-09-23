@@ -4,6 +4,24 @@
 #include <string.h>
 #include <arpa/inet.h>
 
+/*
+
+    ### 使用方法 ###
+
+    int func(int sockfd){
+        return 0;
+    }
+
+    int main()
+    {
+        Tcp * tcp = new Tcp("192.168.0.1", 8080);
+        tcp->conn();
+        tcp->rw(func);
+        return 0;
+    }
+
+*/
+
 Tcp::Tcp(string _addr, int _port)
 {
     addr = _addr;
