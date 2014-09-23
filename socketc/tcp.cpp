@@ -51,6 +51,7 @@ int Tcp::conn()
     // 连接
     if(connect(sockfd, (struct sockaddr*) &address, sizeof(address)) < 0)
     {
+        close(sockfd);
         return -1;
     }
     // 返回
