@@ -12,7 +12,7 @@ public:
     Listen(int _port);
 public:
     int tcp();
-    int udp();
+    int udp(int(*func)(int, struct sockaddr_in*));
     int accepts(void(*func)(struct ev_loop*, struct ev_io*, int));
 private:
     // 要监听的端口

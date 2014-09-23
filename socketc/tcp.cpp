@@ -31,8 +31,8 @@ Tcp::Tcp(string _addr, int _port)
 int Tcp::conn()
 {
     // 地址结构
-    struct sockaddr_in address;
-    // 初始化变量
+    sockaddr_in address;
+    // 初始化
     bzero(&address, sizeof(address));
     // 地址族
     address.sin_family = AF_INET;
@@ -49,7 +49,7 @@ int Tcp::conn()
         return -1;
     }
     // 连接
-    if(connect(sockfd, (struct sockaddr*) &address, sizeof(address)) < 0)
+    if(connect(sockfd, (sockaddr*) &address, sizeof(address)) < 0)
     {
         close(sockfd);
         return -1;

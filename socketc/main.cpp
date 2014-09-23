@@ -11,25 +11,23 @@
 using namespace std;
 
 
-int func(int sockfd){
-    ifstream inf("/json");
-    stringstream in ;
-    in << inf.rdbuf() ;
-    send(sockfd, in.str().c_str(), strlen(in.str().c_str()), 0);
-    ssize_t r_len;
-    char buffer[1024];
-    bzero(buffer, 1024);
-    recv(sockfd, buffer, 1024, 0);
-    cout << buffer << endl;
-    inf.close();
+int func(int sockfd, struct sockaddr_in * address){
+    while(true)
+    {
+        cout << "1" << endl;
+        char buf[32];
+        socklen_t address_len = sizeof(address);
+        recvfrom(sockfd, buf, 32, 0, (sockaddr*) address, &address_len);
+        cout << "2" << endl;
+        cout << buf << endl;
+    }
     return 0;
 }
 
 int main()
 {
-    Tcp * tcp = new Tcp("192.168.2.154", 8700);
-    cout << tcp->conn() << endl;
-    cout << tcp->rw(func) << endl;
+    Listen * listen = new Listen(55601);
+    listen->udp(func);
     return 0;
 }
 
