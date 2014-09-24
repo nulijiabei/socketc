@@ -67,19 +67,22 @@ TCP
 -----------------------------------  
 UDP
 
+
 	int func(int sockfd, struct sockaddr_in* address, socklen_t address_len){
 		string buf = "hello world!";
-		int st = sendto(sockfd, buf.c_str(), buf.length(), 0, (sockaddr*) address, address_len);
-		cout << st << endl;
+		sendto(sockfd, buf.c_str(), buf.length(), 0, (sockaddr*) address, address_len);
 		return 0;
 		// return -1; // -1 Error
 	}
 
 	int main()
 	{
-		Udp * udp = new Udp("192.168.2.255", 55601);
-		udp->udp();
-		udp->sendtos(func);
+                // "192.168.0.1"     指定连接
+                // "192.168.0.255"   网段广播
+		// "255.255.255.255" 全网广播
+		Udp * udp = new Udp("255.255.255.255", 55601);
+		udp->udp(); // -1 Error
+		udp->sendtos(func); // -1 Error
 		return 0;
 	}
 

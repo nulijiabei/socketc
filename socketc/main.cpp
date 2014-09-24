@@ -37,7 +37,6 @@ int main()
 */
 
 
-
 int func(int sockfd, struct sockaddr_in* address, socklen_t address_len){
     string buf = "hello world!";
     int st = sendto(sockfd, buf.c_str(), buf.length(), 0, (sockaddr*) address, address_len);
@@ -48,10 +47,9 @@ int func(int sockfd, struct sockaddr_in* address, socklen_t address_len){
 int main()
 {
     cout << "is sends" << endl;
-    Udp * udp = new Udp("192.168.2.255", 55601);
-    udp->udp();
+    Udp * udp = new Udp("255.255.255.255", 55601);
+    cout << udp->udp() << endl;
     udp->sendtos(func);
     return 0;
 }
-
 
