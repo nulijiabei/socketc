@@ -11,15 +11,14 @@
 using namespace std;
 
 
-int func(int sockfd, struct sockaddr_in * address){
+int func(int sockfd){
     while(true)
     {
-        cout << "1" << endl;
-        char buf[32];
+        sockaddr_in address;
         socklen_t address_len = sizeof(address);
-        recvfrom(sockfd, buf, 32, 0, (sockaddr*) address, &address_len);
-        cout << "2" << endl;
-        cout << buf << endl;
+        char buf[1024];
+        int i = recvfrom(sockfd, buf, 1024, 0, (sockaddr*) &address, &address_len);
+        cout << inet_ntoa(address.sin_addr) <<  address.sin_port << endl;
     }
     return 0;
 }

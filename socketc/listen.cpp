@@ -8,7 +8,6 @@
 
     ### 使用方法（TCP） ###
 
-    // read sokcet descriptor
     void func(struct ev_loop * _loop, struct ev_io * _watcher, int _revents){
         // 错误处理
         if(EV_ERROR & _revents)
@@ -19,7 +18,6 @@
         watcher->fd
     }
 
-    // run
     int main()
     {
         Listen * listen = new Listen(8080);
@@ -30,13 +28,14 @@
 
     ### 使用方法（UDP） ###
 
-    int func(int sockfd, struct sockaddr_in * address){
+    int func(int sockfd){
         while(true)
         {
-            char buf[32];
+            sockaddr_in address;
             socklen_t address_len = sizeof(address);
-            recvfrom(sockfd, buf, 32, 0, (sockaddr*) address, &address_len);
-            cout << buf << endl;
+            char buf[1024];
+            int i = recvfrom(sockfd, buf, 1024, 0, (sockaddr*) &address, &address_len);
+            cout << inet_ntoa(address.sin_addr) <<  address.sin_port << endl;
         }
         return 0;
     }
@@ -89,33 +88,29 @@ int Listen::tcp()
     return sockfd;
 }
 
-int Listen::udp(int(*func)(int, struct sockaddr_in*))
+int Listen::udp(int(*func)(int))
 {
-    // 用来广播地址接收数据
+    // 用来绑定套接字
     sockaddr_in address;
+    // 初始化
     bzero(&address, sizeof(address));
+    // 设置
     address.sin_family = AF_INET;
     address.sin_port = htons(port);
-    address.sin_addr.s_addr = INADDR_BROADCAST;
-    // 用来绑定套接字
-    sockaddr_in sin;
-    bzero(&sin, sizeof(sin));
-    sin.sin_family = AF_INET;
-    sin.sin_port = htons(port);
-    sin.sin_addr.s_addr = 0;
+    address.sin_addr.s_addr = htonl(INADDR_ANY);;
     // 创建
-    if((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
+    if((sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0)
     {
         return -1;
     }
     // 标识赋值
-    if (bind(sockfd, (sockaddr*) &sin, sizeof(sin)) != 0)
+    if (bind(sockfd, (sockaddr*) &address, sizeof(address)) != 0)
     {
         close(sockfd);
         return -1;
     }
     // 执行(阻塞)
-    int status = func(sockfd, &address);
+    int status = func(sockfd);
     // 关闭
     close(sockfd);
     // 返回
