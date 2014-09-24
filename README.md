@@ -2,8 +2,9 @@
 开放连接方式(socket)封装，C++
 
 -----------------------------------  
-Listen TCP
+Listen TCP 
 
+	// 基于TCP的监听，引入libev进行多事件处理
 	void func(struct ev_loop * loop, struct ev_io * watcher, int revents){
 		// 错误处理
 		if(EV_ERROR & revents)
@@ -25,6 +26,7 @@ Listen TCP
 -----------------------------------  
 Listen UDP
 
+	// 基于UDP的监听，通过函数指针进行封装处理
 	int func(int sockfd, struct sockaddr_in* address, socklen_t address_len)
 	{
 		char buf[1024];
@@ -50,6 +52,7 @@ Listen UDP
 -----------------------------------  
 TCP
 
+	// 基于TCP的连接，通过函数指针进行封装处理
 	int func(int sockfd){
 		return 0;
 		// return -1; // -1 Error
@@ -67,7 +70,7 @@ TCP
 -----------------------------------  
 UDP
 
-
+	// 基于UDP的链接，通过函数指针进行封装处理
 	int func(int sockfd, struct sockaddr_in* address, socklen_t address_len){
 		string buf = "hello world!";
 		sendto(sockfd, buf.c_str(), buf.length(), 0, (sockaddr*) address, address_len);
