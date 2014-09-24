@@ -18,7 +18,7 @@ Listen TCP
 	{
 		Listen * listen = new Listen(8080);
 		listen->tcp(); // -1 Error
-		listen->accepts(func); // Loop
+		listen->accepts(func); // Thread Loop
 		return 0;
 	}
 
