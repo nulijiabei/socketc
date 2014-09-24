@@ -36,7 +36,7 @@ Listen UDP
 			cout << inet_ntoa(address.sin_addr) <<  address.sin_port << endl;
 		}
 		return 0;
-		return -1; // -1 Error
+		// return -1; // -1 Error
 	}
 
 	int main()
@@ -67,4 +67,20 @@ TCP
 -----------------------------------  
 UDP
 
-	TODO
+	int func(int sockfd, struct sockaddr* _address, socklen_t _address_len)
+	{
+		string buf = "hello world!";
+		sendto(sockfd, buf.c_str(), buf.length(), 0, _address, _address_len);
+		return 0;
+	}
+
+	int main()
+	{
+		cout << "is sends" << endl;
+		Udp * udp = new Udp("255.255.255.255", 55601);
+		udp->udp(); // -1 Error
+		udp->sendtos(func); // -1 Error
+		return 0;
+	}
+
+

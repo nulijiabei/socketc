@@ -8,7 +8,7 @@
 #include <string.h>
 #include <udp.h>
 
-
+/*
 using namespace std;
 
 int func(int sockfd)
@@ -19,44 +19,38 @@ int func(int sockfd)
     while(true)
     {
         int i = recvfrom(sockfd, buf, 1024, 0, (sockaddr*) &address, &address_len);
-        cout << inet_ntoa(address.sin_addr) <<  address.sin_port << endl;
+        cout << inet_ntoa(address.sin_addr) << endl;
+        cout << buf << endl;
     }
     return 0;
-    return -1; // -1 Error
+    // return -1; // -1 Error
 }
+
 
 int main()
 {
-    Listen * listen = new Listen(8888);
-    listen->udp(func); // -1 Error
-    return 0;
-}
-
-/*
-int func(int sockfd){
-    while(true)
-    {
-        sockaddr_in address;
-        socklen_t address_len = sizeof(address);
-        // 初始化
-        bzero(&address, sizeof(address));
-        // 设置
-        address.sin_family = AF_INET;
-        address.sin_port = htons(8888);
-        address.sin_addr.s_addr = INADDR_BROADCAST;
-        string buf = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-        sendto(sockfd, buf.c_str(), 1024, 0, (sockaddr*) &address, address_len);
-    }
-    return 0;
-}
-
-int main()
-{
-    Udp * udp = new Udp("0", 8888);
-    udp->udp();
-    udp->sendtos(func);
+    cout << "is listen" << endl;
+    Listen * listen = new Listen(55601);
+    listen->udp(); // -1 Error
+    listen->recvfroms(func); // -1 Error
     return 0;
 }
 */
 
 
+
+int func(int sockfd, struct sockaddr* _address, socklen_t _address_len){
+    string buf = "hello world!";
+    int st = sendto(sockfd, buf.c_str(), buf.length(), 0, _address, _address_len);
+    cout << st << endl;
+    return 0;
+}
+
+int main()
+{
+    cout << "is sends" << endl;
+    Udp * udp = new Udp("255.255.255.255", 55601);
+    udp->udp();
+    udp->sendtos(func);
+    return 0;
+}

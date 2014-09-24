@@ -12,32 +12,29 @@ Udp::Udp(string _addr, int _port)
 
 int Udp::udp()
 {
-    // 用来绑定套接字
-    sockaddr_in address;
-    // 初始化
-    bzero(&address, sizeof(address));
-    // 设置
-    address.sin_family = AF_INET;
-    address.sin_port = htons(port);
-    address.sin_addr.s_addr = INADDR_BROADCAST;
     // 创建
-    if((sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0)
+    if((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
-        return -1;
-    }
-    // 标识赋值
-    if (bind(sockfd, (sockaddr*) &address, sizeof(address)) != 0)
-    {
-        close(sockfd);
         return -1;
     }
     // 返回
     return sockfd;
 }
 
-int Udp::sendtos(int(*func)(int))
+int Udp::sendtos(int(*func)(int, struct sockaddr*, socklen_t))
 {
-    return func(sockfd);
+    // 地址
+    sockaddr_in address;
+    // 长度
+    socklen_t address_len = sizeof(address);
+    // 初始化
+    bzero(&address, sizeof(address));
+    // 设置
+    address.sin_family = AF_INET;
+    address.sin_port = htons(port);
+    address.sin_addr.s_addr = INADDR_ANY;
+    // 执行
+    return func(sockfd, (sockaddr*) &address, address_len);
 }
 
 int Udp::discon()
