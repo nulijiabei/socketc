@@ -32,7 +32,7 @@ int Udp::sendtos(int(*func)(int, struct sockaddr*, socklen_t))
     // 设置
     address.sin_family = AF_INET;
     address.sin_port = htons(port);
-    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_addr.s_addr = inet_addr(addr.c_str());
     // 执行
     return func(sockfd, (sockaddr*) &address, address_len);
 }

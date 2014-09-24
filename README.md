@@ -77,7 +77,7 @@ UDP
 	int main()
 	{
 		cout << "is sends" << endl;
-		Udp * udp = new Udp("255.255.255.255", 55601);
+		Udp * udp = new Udp("192.168.0.255", 55601);
 		udp->udp(); // -1 Error
 		udp->sendtos(func); // -1 Error
 		return 0;
