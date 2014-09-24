@@ -4,9 +4,9 @@
 -----------------------------------  
 Listen TCP
 
-	void func(struct ev_loop * _loop, struct ev_io * _watcher, int _revents){
+	void func(struct ev_loop * loop, struct ev_io * watcher, int revents){
 		// 错误处理
-		if(EV_ERROR & _revents)
+		if(EV_ERROR & revents)
 		{
 			return;
 		}
@@ -27,7 +27,7 @@ Listen UDP
 
 	int func(int sockfd, struct sockaddr_in* address, socklen_t address_len)
 	{
-	char buf[1024];
+		char buf[1024];
 		while(true)
 		{
 			int i = recvfrom(sockfd, buf, 1024, 0, (sockaddr*) address, &address_len);
@@ -84,3 +84,4 @@ UDP
 		udp->sendtos(func);
 		return 0;
 	}
+
