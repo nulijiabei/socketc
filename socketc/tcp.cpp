@@ -45,6 +45,13 @@ int Tcp::rw(int(*func)(int))
 {
     // 执行
     int status = func(sockfd);
-    close(sockfd);
     return status;
 }
+
+// 断开
+int Tcp::discon()
+{
+   return close(sockfd);
+}
+
+

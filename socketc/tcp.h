@@ -10,6 +10,7 @@ public:
     Tcp(string _addr, int _port);
 public:
     int conn();
+    int discon();
     int rw(int(*func)(int));
 private:
     // 要监听的地址
