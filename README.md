@@ -17,8 +17,8 @@ Listen TCP
 	int main()
 	{
 		Listen * listen = new Listen(8080);
-		listen->tcp();
-		listen->accepts(func);
+		listen->tcp(); // -1 Error
+		listen->accepts(func); // Loop
 		return 0;
 	}
 
@@ -36,12 +36,13 @@ Listen UDP
 			cout << inet_ntoa(address.sin_addr) <<  address.sin_port << endl;
 		}
 		return 0;
+                return -1; // -1 Error
 	}
 
 	int main()
 	{
 		Listen * listen = new Listen(55601);
-		listen->udp(func);
+		listen->udp(func); // -1 Error
 		return 0;
 	}
 
@@ -50,13 +51,14 @@ TCP
 
 	int func(int sockfd){
 		return 0;
+		return -1; // -1 Error
 	}
 
 	int main()
 	{
 		Tcp * tcp = new Tcp("192.168.0.1", 8080);
-		tcp->conn();
-		tcp->rw(func);
+		tcp->conn(); // -1 Error
+		tcp->rw(func); // -1 Error
 		return 0;
 	}
 
