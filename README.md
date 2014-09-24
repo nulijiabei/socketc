@@ -41,7 +41,6 @@ Listen UDP
 
 	int main()
 	{
-		cout << "is listen" << endl;
 		Listen * listen = new Listen(55601);
 		listen->udp(); // -1 Error
 		listen->recvfroms(func); // -1 Error
@@ -78,7 +77,6 @@ UDP
 
 	int main()
 	{
-		cout << "is sends" << endl;
 		Udp * udp = new Udp("192.168.2.255", 55601);
 		udp->udp();
 		udp->sendtos(func);
