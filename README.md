@@ -52,7 +52,7 @@ TCP
 
 	int func(int sockfd){
 		return 0;
-		return -1; // -1 Error
+		// return -1; // -1 Error
 	}
 
 	int main()
@@ -72,6 +72,7 @@ UDP
 		string buf = "hello world!";
 		sendto(sockfd, buf.c_str(), buf.length(), 0, _address, _address_len);
 		return 0;
+		// return -1; // -1 Error
 	}
 
 	int main()
