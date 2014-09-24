@@ -59,7 +59,7 @@ TCP
 		Tcp * tcp = new Tcp("192.168.0.1", 8080);
 		tcp->conn(); // -1 Error
 		tcp->rw(func); // -1 Error
-                tcp->discon(); // -1 Error
+		tcp->discon(); // -1 Error
 		return 0;
 	}
 
