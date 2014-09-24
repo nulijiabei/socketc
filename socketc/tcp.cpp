@@ -44,8 +44,7 @@ int Tcp::conn()
 int Tcp::rw(int(*func)(int))
 {
     // 执行
-    int status = func(sockfd);
-    return status;
+    return func(sockfd);
 }
 
 // 断开

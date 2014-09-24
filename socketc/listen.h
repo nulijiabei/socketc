@@ -12,10 +12,11 @@ public:
     Listen(int _port);
 public:
     int tcp();
-    int udp(int(*func)(int));
+    int udp();
+    int recvfroms(int(*func)(int));
     int accepts(void(*func)(struct ev_loop*, struct ev_io*, int));
 private:
-    // 要监听的端口
+    // 端口
     int port;
     // 描述符
     int sockfd;

@@ -42,7 +42,8 @@ Listen UDP
 	int main()
 	{
 		Listen * listen = new Listen(55601);
-		listen->udp(func); // -1 Error
+		listen->udp(); // -1 Error
+		listen->recvfroms(func); // -1 Error
 		return 0;
 	}
 

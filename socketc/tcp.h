@@ -13,9 +13,9 @@ public:
     int discon();
     int rw(int(*func)(int));
 private:
-    // 要监听的地址
+    // 地址
     string addr;
-    // 要监听的端口
+    // 端口
     int port;
     // 描述符
     int sockfd;

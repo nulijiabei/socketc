@@ -43,7 +43,7 @@ int Listen::tcp()
     return sockfd;
 }
 
-int Listen::udp(int(*func)(int))
+int Listen::udp()
 {
     // 用来绑定套接字
     sockaddr_in address;
@@ -64,6 +64,13 @@ int Listen::udp(int(*func)(int))
         close(sockfd);
         return -1;
     }
+    // 返回
+    return sockfd;
+}
+
+// UDP 专用
+int Listen::recvfroms(int(*func)(int))
+{
     // 执行(阻塞)
     int status = func(sockfd);
     // 关闭
@@ -72,6 +79,7 @@ int Listen::udp(int(*func)(int))
     return status;
 }
 
+// TCP 专用
 int Listen::accepts(void(*func)(struct ev_loop*, struct ev_io*, int))
 {
     // 地址结构
