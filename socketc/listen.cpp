@@ -29,11 +29,11 @@
     ### 使用方法（UDP） ###
 
     int func(int sockfd){
+        sockaddr_in address;
+        socklen_t address_len = sizeof(address);
+        char buf[1024];
         while(true)
         {
-            sockaddr_in address;
-            socklen_t address_len = sizeof(address);
-            char buf[1024];
             int i = recvfrom(sockfd, buf, 1024, 0, (sockaddr*) &address, &address_len);
             cout << inet_ntoa(address.sin_addr) <<  address.sin_port << endl;
         }
