@@ -13,7 +13,7 @@ public:
 public:
     int tcp();
     int udp();
-    int recvfroms(int(*func)(int));
+    int recvfroms(int(*func)(int, struct sockaddr_in*, socklen_t));
     int accepts(void(*func)(struct ev_loop*, struct ev_io*, int));
 private:
     // 端口

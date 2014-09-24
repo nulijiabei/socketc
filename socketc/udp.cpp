@@ -21,7 +21,7 @@ int Udp::udp()
     return sockfd;
 }
 
-int Udp::sendtos(int(*func)(int, struct sockaddr*, socklen_t))
+int Udp::sendtos(int(*func)(int, struct sockaddr_in*, socklen_t))
 {
     // 地址
     sockaddr_in address;
@@ -34,7 +34,7 @@ int Udp::sendtos(int(*func)(int, struct sockaddr*, socklen_t))
     address.sin_port = htons(port);
     address.sin_addr.s_addr = inet_addr(addr.c_str());
     // 执行
-    return func(sockfd, (sockaddr*) &address, address_len);
+    return func(sockfd, &address, address_len);
 }
 
 int Udp::discon()

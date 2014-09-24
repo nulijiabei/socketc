@@ -13,7 +13,7 @@ public:
 public:
     int udp();
     int discon();
-    int sendtos(int(*func)(int, struct sockaddr*, socklen_t));
+    int sendtos(int(*func)(int, struct sockaddr_in*, socklen_t));
 private:
     // 地址
     string addr;

@@ -8,18 +8,17 @@
 #include <string.h>
 #include <udp.h>
 
-/*
+
 using namespace std;
 
-int func(int sockfd)
+/*
+int func(int sockfd, struct sockaddr_in* address, socklen_t address_len)
 {
-    sockaddr_in address;
-    socklen_t address_len = sizeof(address);
     char buf[1024];
     while(true)
     {
-        int i = recvfrom(sockfd, buf, 1024, 0, (sockaddr*) &address, &address_len);
-        cout << inet_ntoa(address.sin_addr) << endl;
+        int i = recvfrom(sockfd, buf, 1024, 0, (sockaddr*) address, &address_len);
+        cout << inet_ntoa(address->sin_addr) << endl;
         cout << buf << endl;
     }
     return 0;
@@ -37,9 +36,11 @@ int main()
 }
 */
 
-int func(int sockfd, struct sockaddr* _address, socklen_t _address_len){
+
+
+int func(int sockfd, struct sockaddr_in* address, socklen_t address_len){
     string buf = "hello world!";
-    int st = sendto(sockfd, buf.c_str(), buf.length(), 0, _address, _address_len);
+    int st = sendto(sockfd, buf.c_str(), buf.length(), 0, (sockaddr*) address, address_len);
     cout << st << endl;
     return 0;
 }
@@ -52,3 +53,5 @@ int main()
     udp->sendtos(func);
     return 0;
 }
+
+

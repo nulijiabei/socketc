@@ -45,7 +45,7 @@ int Listen::tcp()
 
 int Listen::udp()
 {
-    // 用来绑定套接字
+    // 地址
     sockaddr_in address;
     // 初始化
     bzero(&address, sizeof(address));
@@ -69,10 +69,16 @@ int Listen::udp()
 }
 
 // UDP 专用
-int Listen::recvfroms(int(*func)(int))
+int Listen::recvfroms(int(*func)(int, struct sockaddr_in*, socklen_t))
 {
+    // 地址
+    sockaddr_in address;
+    // 地址长度
+    socklen_t address_len = sizeof(address);
+    // 初始化
+    bzero(&address, sizeof(address));
     // 执行(阻塞)
-    int status = func(sockfd);
+    int status = func(sockfd, &address, address_len);
     // 关闭
     close(sockfd);
     // 返回

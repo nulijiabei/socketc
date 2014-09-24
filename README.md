@@ -25,22 +25,23 @@ Listen TCP
 -----------------------------------  
 Listen UDP
 
-	int func(int sockfd)
+	int func(int sockfd, struct sockaddr_in* address, socklen_t address_len)
 	{
-		sockaddr_in address;
-		socklen_t address_len = sizeof(address);
-		char buf[1024];			
+	char buf[1024];
 		while(true)
 		{
-			int i = recvfrom(sockfd, buf, 1024, 0, (sockaddr*) &address, &address_len);
-			cout << inet_ntoa(address.sin_addr) <<  address.sin_port << endl;
+			int i = recvfrom(sockfd, buf, 1024, 0, (sockaddr*) address, &address_len);
+			cout << inet_ntoa(address->sin_addr) << endl;
+			cout << buf << endl;
 		}
 		return 0;
 		// return -1; // -1 Error
 	}
 
+
 	int main()
 	{
+		cout << "is listen" << endl;
 		Listen * listen = new Listen(55601);
 		listen->udp(); // -1 Error
 		listen->recvfroms(func); // -1 Error
@@ -67,20 +68,19 @@ TCP
 -----------------------------------  
 UDP
 
-	int func(int sockfd, struct sockaddr* _address, socklen_t _address_len)
-	{
+	int func(int sockfd, struct sockaddr_in* address, socklen_t address_len){
 		string buf = "hello world!";
-		sendto(sockfd, buf.c_str(), buf.length(), 0, _address, _address_len);
+		int st = sendto(sockfd, buf.c_str(), buf.length(), 0, (sockaddr*) address, address_len);
+		cout << st << endl;
 		return 0;
 		// return -1; // -1 Error
 	}
 
 	int main()
 	{
-		Udp * udp = new Udp("192.168.0.255", 55601);
-		udp->udp(); // -1 Error
-		udp->sendtos(func); // -1 Error
+		cout << "is sends" << endl;
+		Udp * udp = new Udp("192.168.2.255", 55601);
+		udp->udp();
+		udp->sendtos(func);
 		return 0;
 	}
-
-
