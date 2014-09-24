@@ -4,51 +4,6 @@
 #include <ev.h>
 #include <iostream>
 
-/*
-
-    ### 使用方法（TCP） ###
-
-    void func(struct ev_loop * _loop, struct ev_io * _watcher, int _revents){
-        // 错误处理
-        if(EV_ERROR & _revents)
-        {
-            return;
-        }
-        // 连接
-        watcher->fd
-    }
-
-    int main()
-    {
-        Listen * listen = new Listen(8080);
-        listen->tcp();
-        listen->accepts(func);
-        return 0;
-    }
-
-    ### 使用方法（UDP） ###
-
-    int func(int sockfd){
-        sockaddr_in address;
-        socklen_t address_len = sizeof(address);
-        char buf[1024];
-        while(true)
-        {
-            int i = recvfrom(sockfd, buf, 1024, 0, (sockaddr*) &address, &address_len);
-            cout << inet_ntoa(address.sin_addr) <<  address.sin_port << endl;
-        }
-        return 0;
-    }
-
-    int main()
-    {
-        Listen * listen = new Listen(55601);
-        listen->udp(func);
-        return 0;
-    }
-
-*/
-
 Listen::Listen(int _port)
 {
     port = _port;
