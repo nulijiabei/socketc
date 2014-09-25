@@ -86,6 +86,7 @@ UDP
 		Udp * udp = new Udp("255.255.255.255", 55601);
 		udp->udp(); // -1 Error
 		udp->sendtos(func); // -1 Error
+		udp->discon(); // -1 Error
 		return 0;
 	}
 
