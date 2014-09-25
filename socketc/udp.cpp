@@ -20,7 +20,7 @@ int Udp::udp()
     // 开启广播
     int broadcast = 1;
     // 设置
-    if(setsockopt(sockfd,SOL_SOCKET,SO_BROADCAST,&broadcast,sizeof(broadcast)) == -1)
+    if(setsockopt(sockfd, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof(broadcast)) == -1)
     {
         return -1;
     }
